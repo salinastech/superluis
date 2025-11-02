@@ -1,0 +1,534 @@
+/* ==================== 1. Variables y Reset Básico ==================== */
+:root {
+    --color-principal: #000000;
+    --color-secundario: #333333;
+    --color-acento: #ff4444;
+    --color-acento-claro: #aaaaaa;
+    --color-fondo: #ffffff;
+    --color-texto-claro: #ffffff;
+    --color-texto-oscuro: #1f1f1f; 
+
+    --sombra-tarjeta: 0 6px 15px rgba(0, 0, 0, 0.2);
+    --sombra-tarjeta-hover: 0 12px 25px rgba(0, 0, 0, 0.4);
+    --transicion-rapida: all 0.25s ease-in-out;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-fondo);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-principal);
+    transition: var(--transicion-rapida);
+}
+
+a:hover {
+    color: var(--color-acento-claro);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ==================== 2. Encabezado (Header y Navegación) ==================== */
+.barra-navegacion {
+    background-color: var(--color-principal);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.contenedor-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; 
+}
+
+.marca-navegacion {
+    font-size: 2em; 
+    font-weight: 700;
+    color: var(--color-texto-claro);
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.navegacion-principal ul {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.navegacion-principal a {
+    color: var(--color-texto-claro);
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 10px 0;
+    position: relative;
+}
+
+.navegacion-principal a:hover {
+    color: var(--color-acento-claro);
+}
+
+.navegacion-principal a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-texto-claro);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+.navegacion-principal a:hover::after {
+    width: 100%;
+}
+
+.desplegable {
+    position: relative;
+    padding: 0;
+}
+
+.desplegable ul { 
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-secundario); 
+    min-width: 180px;
+    z-index: 10;
+    box-shadow: var(--sombra-tarjeta);
+    border-top: 3px solid var(--color-texto-claro);
+    padding: 5px 0;
+    border-radius: 0 0 8px 8px;
+    transform-origin: top;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.desplegable:hover > ul {
+    display: flex;
+}
+
+.desplegable ul li a {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.desplegable ul li a:hover {
+    background-color: #4c4c4c;
+    color: var(--color-acento-claro);
+    padding-left: 25px; 
+}
+
+.alternar-menu {
+    display: none; 
+    cursor: pointer;
+    padding: 10px;
+    z-index: 110; 
+}
+
+.barra { 
+    width: 28px;
+    height: 3px;
+    background-color: var(--color-texto-claro);
+    margin: 5px 0;
+    transition: var(--transicion-rapida);
+    border-radius: 2px;
+}
+
+.alternar-menu.activo .barra:nth-child(2) {
+    opacity: 0;
+}
+.alternar-menu.activo .barra:nth-child(1) {
+    transform: translateY(8px) rotate(45deg); 
+}
+.alternar-menu.activo .barra:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg); 
+}
+
+
+/* ==================== 3. Hero Banner ==================== */
+.hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('../../images/banner.png'); 
+    background-size: cover;
+    background-position: center;
+    color: var(--color-texto-claro);
+    text-align: center;
+    padding: 230px 20px; 
+    border-bottom: 8px solid var(--color-texto-claro);
+}
+
+.main-title {
+    font-size: 4.5em; 
+    margin-bottom: 15px;
+    font-weight: 900;
+    animation: slideIn 1s ease-out;
+}
+
+.roms-highlight {
+    color: #000000;
+}
+
+.subtitle {
+    font-size: 1.8em;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== 4. Contenido Principal (Grid Layout) ==================== */
+.main-content-wrapper {
+    padding: 60px 0;
+    background-color: var(--color-fondo);
+}
+
+.main-content {
+    display: grid;
+    gap: 40px; 
+    grid-template-columns: 280px 1fr;
+}
+
+/* 4.1. Sidebar de Consolas */
+.sidebar-left {
+    padding: 25px;
+    background-color: var(--color-texto-claro);
+    border-radius: 12px;
+    box-shadow: var(--sombra-tarjeta);
+    height: fit-content;
+    border: 1px solid #ddd;
+}
+
+.sidebar-left h2 {
+    color: var(--color-principal);
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--color-acento-claro);
+    padding-bottom: 15px;
+    font-size: 1.6em;
+    text-transform: uppercase;
+}
+
+.console-list li {
+    margin-bottom: 12px;
+}
+
+.console-list a {
+    color: var(--color-texto-oscuro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    border-left: 5px solid transparent;
+    transition: var(--transicion-rapida);
+}
+
+.console-list a:hover {
+    background-color: var(--color-secundario);
+    color: var(--color-texto-claro);
+    border-left: 5px solid var(--color-acento-claro);
+    transform: translateX(5px);
+}
+
+/* 4.2. Grid de ROMs */
+.roms-header h2 {
+    font-size: 2.5em;
+    color: var(--color-principal);
+    margin-bottom: 30px;
+    border-left: 8px solid var(--color-acento-claro);
+    padding-left: 20px;
+    font-weight: 700;
+}
+
+.roms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 30px;
+}
+
+.rom-card {
+    background-color: var(--color-texto-claro);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra-tarjeta);
+    transition: var(--transicion-rapida);
+    border: 1px solid #ddd;
+}
+
+.rom-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--sombra-tarjeta-hover);
+    border-color: var(--color-acento-claro);
+}
+
+.rom-card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.rom-card:hover img {
+    transform: scale(1.05); 
+}
+
+.rom-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.rom-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--color-principal);
+    font-size: 1.1em;
+}
+
+.rom-console {
+    display: inline-block;
+    background-color: var(--color-principal);
+    color: var(--color-texto-claro);
+    font-size: 0.9em;
+    padding: 6px 12px;
+    border-radius: 20px; 
+    text-transform: uppercase;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== 5. Emuladores Populares ==================== */
+.popular-emulators {
+    background-color: var(--color-principal);
+    padding: 60px 0;
+}
+
+#emulators-heading {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+.emulators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.emulator-card {
+    background-color: var(--color-secundario); 
+    border-radius: 12px;
+    box-shadow: var(--sombra-tarjeta);
+    text-align: center;
+    transition: var(--transicion-rapida);
+    border: 2px solid transparent;
+}
+
+.emulator-card:hover {
+    transform: scale(1.05);
+    border-color: var(--color-texto-claro);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.emulator-card a {
+    color: inherit;
+    display: block;
+    padding: 25px 15px;
+}
+
+.emulator-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto 15px;
+    display: block;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+}
+
+.emu-title {
+    font-weight: 700;
+    color: var(--color-texto-claro);
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+.emu-device {
+    color: #b0b0b0;
+    font-size: 1em;
+    font-weight: 300;
+}
+
+/* ==================== 6. Pie de Página (Footer) ==================== */
+.footer {
+    color: #000000; 
+    text-align: center;
+    padding: 25px 0;
+    font-size: 1em;
+}
+
+/* ==================== 7. Media Queries (Responsividad) - CONSOLIDADO ==================== */
+
+/* Tablet y Móviles (Menor a 900px) */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-left {
+        order: -1;
+    }
+
+    .hero-banner {
+        padding: 80px 20px; 
+    }
+
+    .main-title {
+        font-size: 3.5em;
+    }
+
+    .subtitle {
+        font-size: 1.5em;
+    }
+}
+
+/* Móviles (Menor a 768px) */
+@media (max-width: 768px) {
+    /* 1. Menú Hamburguesa (Mobile Navigation) */
+    .alternar-menu {
+        display: block; 
+    }
+
+    .navegacion-principal {
+        display: none; 
+        position: absolute;
+        top: 61px; 
+        left: 0;
+        width: 100%;
+        background-color: var(--color-principal); 
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        z-index: 99;
+    }
+    
+    .navegacion-principal.activo {
+        display: block; 
+        animation: slideDown 0.3s ease-out;
+    }
+
+    /* Animación de deslizamiento hacia abajo para el menú */
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    .navegacion-principal ul {
+        flex-direction: column;
+        padding: 0; 
+        gap: 0; 
+    }
+
+    .navegacion-principal ul li {
+        width: 100%;
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--color-secundario); 
+        text-align: left; 
+    }
+    .navegacion-principal ul li:last-child {
+        border-bottom: none; 
+    }
+
+    .navegacion-principal a {
+        display: block; 
+        padding: 15px 20px; 
+    }
+    
+    /* Eliminar el indicador de hover en el menú móvil */
+    .navegacion-principal a::after {
+        content: none;
+    }
+    .navegacion-principal a:hover {
+        color: var(--color-acento-claro);
+        background-color: var(--color-secundario);
+    }
+    
+    /* Manejo del Desplegable (ROMS) en móvil */
+    .desplegable ul { 
+        position: static; 
+        width: 100%;
+        background-color: #262626;
+        box-shadow: none;
+        border-top: none;
+        border-radius: 0;
+        padding: 0;
+        padding-left: 15px; 
+    }
+    .desplegable:hover > ul {
+        display: none; 
+    }
+    .desplegable.activo > ul {
+        display: flex; 
+    }
+    
+    .desplegable ul li {
+        border-bottom: 1px solid #101010;
+    }
+    
+    .desplegable ul li a:hover {
+        padding-left: 20px; 
+    }
+
+
+    /* Ajustes de Contenido */
+    .main-title {
+        font-size: 2.8em; 
+    }
+
+    .subtitle {
+        font-size: 1.2em;
+    }
+
+    .roms-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+        gap: 20px;
+    }
+    
+    .emulators-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    .sidebar-left h2, .roms-header h2 {
+        font-size: 1.5em; 
+    }
+}
