@@ -1,3 +1,4 @@
 User-agent: *
 Disallow:
-Sitemap: https://salinastech.com/sitemap.xml
+Sitemap: https://superluis.salinastech.com/sitemap.xml
+
