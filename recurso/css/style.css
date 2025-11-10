@@ -295,7 +295,6 @@ ul {
 .rom-card img {
     width: 100%;
     display: block;
-    aspect-ratio: 1;
     object-fit: contain;
     transition: transform 0.4s ease;
 }
@@ -531,4 +530,5 @@ ul {
     .sidebar-left h2, .roms-header h2 {
         font-size: 1.5em; 
     }
+
 }
